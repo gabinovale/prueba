@@ -55,7 +55,7 @@ public class Sistema {
 	        opcion = teclado.nextLine();
 	        if (opcion.equals("si")) {
 	        	System.out.println("¡Felicidades " + frodo.getNombre() +"!, ud compró: " + p.getNombre() + "!");
-	        	
+	        	//agregar la compra al usuario
 	        }
 	        
 		}
