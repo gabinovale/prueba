@@ -4,14 +4,14 @@ public class Usuario {
 	private String nombre;
 	private int presupuesto;
 	private Double tiempo;
-	private String avPreferencia;
+	private String preferencia;
 
-	public Usuario(String nombre, int presupuesto, Double tiempo, String avPreferencia) {
+	public Usuario(String nombre, int presupuesto, Double tiempo, String preferencia) {
 		super();
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempo = tiempo;
-		this.avPreferencia = avPreferencia;
+		this.preferencia = preferencia;
 	}
 
 	public String getNombre() {
@@ -26,8 +26,8 @@ public class Usuario {
 		return tiempo;
 	}
 
-	public String getAvPreferencia() {
-		return avPreferencia;
+	public String getPreferencia() {
+		return preferencia;
 	}
 
 	public void setPresupuesto(int presupuesto) {
