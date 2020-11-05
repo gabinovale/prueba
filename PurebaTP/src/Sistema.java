@@ -54,7 +54,7 @@ public class Sistema {
 	        System.out.print("Introduzca su opcion: ");
 	        opcion = teclado.nextLine();
 	        if (opcion.equals("si")) {
-	        	System.out.println("¡Felicidades " + frodo.getNombre() +"", ud compró: " + p.getNombre() + "!");
+	        	System.out.println("¡Felicidades " + frodo.getNombre() +"!, ud compró: " + p.getNombre() + "!");
 	        	
 	        }
 	        
