@@ -4,8 +4,8 @@ public class PromocionAxB extends Promocion {
 	
 	private Atraccion atraccionGratis;
 
-	public PromocionAxB(String nombre, LinkedList<String> atraccion, Atraccion atraccionGratis) {
-		super(nombre, atraccion);
+	public PromocionAxB(String nombre, LinkedList<Atraccion> atracciones, int costo, Double tiempo, int cupo, String tipo, Atraccion atraccionGratis) {
+		super(nombre, atracciones, costo, tiempo, cupo, tipo);
 		this.setAtraccionGratis(atraccionGratis);
 	}
 

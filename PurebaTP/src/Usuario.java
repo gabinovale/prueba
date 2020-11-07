@@ -1,5 +1,4 @@
 
-
 public class Usuario {
 	private String nombre;
 	private int presupuesto;
@@ -36,6 +35,12 @@ public class Usuario {
 
 	public void setTiempo(Double tiempo) {
 		this.tiempo = tiempo;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", presupuesto=" + presupuesto + ", tiempo=" + tiempo + ", Preferencia="
+				+ preferencia + "]";
 	}
 
 }

@@ -1,0 +1,6 @@
+Juan;50;6;Aventura
+Guillermo;30;3;Paisaje
+Nico;60;2;Degustacion
+Lorena;45;2.5;Paisaje
+Martin;45;6.5;Degustacion
+Gabino;10;7;Degustacion

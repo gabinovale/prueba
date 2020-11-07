@@ -1,70 +1,98 @@
+
 import java.util.LinkedList;
 
 import java.util.Scanner;
+
 
 public class Sistema {
 
 	public static void main(String[] args) {
 
-		Usuario frodo = new Usuario("Frodo", 10, 8.0, "Aventura");
+		LinkedList<Usuario> usuarios = LecturaUsuarios.listaUsuario();
 
-		Producto moria = new Atraccion("Moria", 10, 2.0, 6, "Aventura");
-		Producto minas = new Atraccion("Minas Tirith", 5, 2.5, 25, "Paisaje");
-		Producto comarca = new Atraccion("La Comarca", 3, 6.5, 150, "Degustacion");
+		LinkedList<Atraccion> listaAtracciones = LecturaAtracciones.listaAtracciones();
 
-		Atraccion mordor = new Atraccion("Mordor", 25, 3.0 , 4, "Aventura");
-		Atraccion abismo = new Atraccion("Abismo de Heim", 5, 2.0, 15, "Paisaje");
-		Atraccion lothlorien = new Atraccion("Lothlórien", 35, 1.0, 30, "Degustacion");
+		LinkedList<Promocion> listaPromociones = LecturaPromociones.listaPromocion();
 
 
-		LinkedList<Producto> lista = new LinkedList<Producto>();
-		lista.add(moria);
-		lista.add(minas);
-		lista.add(comarca);
-		lista.add(mordor);
-		lista.add(abismo);
-		lista.add(lothlorien);
-
-		LinkedList<String> listaString = new LinkedList<String>();
-		listaString.add(moria.getNombre());
-		listaString.add(minas.getNombre());
-		listaString.add(comarca.getNombre());
-
-
-		Producto packAventura = new Promocion("Pack Aventura", listaString);
-
-		LinkedList<String> listaString2 = new LinkedList<String>();
-		listaString.add(mordor.getNombre());
-		listaString.add(lothlorien.getNombre());
-		listaString.add(abismo.getNombre());
-
-		Producto packNuevo = new Promocion("Pack Aventura", listaString2);
-
-		lista.add(packAventura);
-		lista.add(packNuevo);
-
-
-		sugerir(lista, frodo);
-
+		for (Usuario u : usuarios)
+			sugerir(listaPromociones, listaAtracciones, u);
 
 	}
 
-	public static void sugerir(LinkedList<Producto> lista, Usuario u) {
-		for (Producto p : lista) {
-			System.out.println(p);
-			System.out.println("¿Quiere comprar este producto?");
-			String opcion;
+	public static void sugerir(LinkedList<Promocion> listaP, LinkedList<Atraccion> listaA ,Usuario usuario) {
 
-			Scanner teclado = new Scanner(System.in);
-			System.out.print("Introduzca su opcion: ");
-			opcion = teclado.nextLine();
-			if (opcion.equals("si")) {
-				System.out.println("¡Felicidades " + u.getNombre() +"!, ud compró: " + p.getNombre() + "!");
-				//agregar la compra al usuario
+		System.out.println("¡Bienvenido "+ usuario.getNombre() + "!");
+
+		LinkedList<Atraccion> listaAtraccionesCompradas = new LinkedList<Atraccion>();
+
+		for (Promocion p : listaP) {
+			if(usuario.getPresupuesto()>p.getCosto() && usuario.getTiempo()>p.getTiempo()) {
+				System.out.println("¿Quiere comprar este producto?:");
+
+				System.out.println(p);
+
+				String opcion;
+
+				Scanner teclado = new Scanner(System.in);
+				System.out.print("Introduzca su opcion: ");
+
+				opcion = teclado.nextLine();
+
+				if (opcion.equals("si")) {
+
+					for (Atraccion a : p.getAtracciones()) {
+						listaAtraccionesCompradas.add(a);
+						listaA.remove(a);
+						a.setCupo(a.getCupo()-1);
+					}
+					usuario.setPresupuesto(usuario.getPresupuesto()-p.getCosto());
+					usuario.setTiempo(usuario.getTiempo() - p.getTiempo());
+					System.out.println("¡Felicidades " + usuario.getNombre() +"!, ud compró: " + p.getNombre() + "!");
+					System.out.println("---------------------------------------");
+				}
+
+				//				teclado.close();
+
 			}
 
 		}
+
+		for (Atraccion a : listaA) {
+			if(usuario.getPresupuesto()>a.getCosto() && usuario.getTiempo()>a.getTiempo()) {
+				System.out.println("¿Quiere comprar este producto?:");
+
+				System.out.println(a);
+
+				String opcion;
+
+				Scanner teclado = new Scanner(System.in);
+				System.out.print("Introduzca su opcion: ");
+
+				opcion = teclado.nextLine();
+
+				if (opcion.equals("si")) {
+					listaAtraccionesCompradas.add(a);
+					a.setCupo(a.getCupo()-1);
+
+					usuario.setPresupuesto(usuario.getPresupuesto()-a.getCosto());
+					usuario.setTiempo(usuario.getTiempo() - a.getTiempo());
+					System.out.println("¡Felicidades " + usuario.getNombre() +"!, ud compró: " + a.getNombre() + "!");
+					System.out.println("---------------------------------------");
+				}
+				//				teclado.close();
+			}
+
+
+
+		}
+		Itinerario itinerario = new Itinerario(usuario,listaAtraccionesCompradas);
+		System.out.println(usuario);
+		System.out.println(itinerario);
+		Scanner teclado = new Scanner(System.in);
+		String opcion = teclado.nextLine();
 	}
+
 }
 
 
