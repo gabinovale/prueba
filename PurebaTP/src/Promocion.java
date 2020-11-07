@@ -9,6 +9,7 @@ public class Promocion  extends Producto{
 	public Promocion(String nombre, LinkedList<Atraccion> atracciones, int costo, Double tiempo, int cupo, String tipo) {
 		super(nombre, costo, tiempo, cupo, tipo);
 		this.atracciones = atracciones;
+		this.setCupo(this.calcularCupo());
 	}
 
 	public LinkedList<Atraccion> getAtracciones() {
@@ -20,23 +21,26 @@ public class Promocion  extends Producto{
 	}
 
 	@Override
-	public int getCosto() {
-		// TODO Auto-generated method stub
-		return super.getCosto();
-	}
-	
-	@Override
-	public Double getTiempo() {
-		// TODO Auto-generated method stub
-		return super.getTiempo();
-	}
-	
-	@Override
 	public int getCupo() {
-		// TODO Auto-generated method stub
-		return super.getCupo();
+		return this.calcularCupo();
 	}
 	
+	private int calcularCupo() {
+		int cupoMaximo = this.getAtracciones().get(0).getCupo();
+		for (Atraccion a : this.getAtracciones()) {
+			if (a.getCupo() < cupoMaximo)
+				cupoMaximo=a.getCupo();
+			
+		}
+		return cupoMaximo;
+	}
 	
+	@Override
+	public String toString() {
+		String atracciones="\nIncluye las atracciones:";
+		for (Atraccion a : this.getAtracciones())
+			atracciones+=" "+a.getNombre()+",";
+		return super.toString() + atracciones;
+	}
 
 }

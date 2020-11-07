@@ -8,7 +8,7 @@ public class PromocionAbsoluta extends Promocion {
 		super(nombre, atracciones, costo, tiempo, cupo, tipo);
 		
 		this.setDescuento(descuento);
-		this.setCosto(this.getCosto());
+		this.setCosto(this.calcularCosto());
 	}
 
 	public int getDescuento() {
@@ -21,8 +21,11 @@ public class PromocionAbsoluta extends Promocion {
 	
 	@Override
 	public int getCosto() {
-		return super.getCosto() - this.descuento;
+		return super.getCosto();
 	}
 	
+	private int calcularCosto() {
+		return this.getCosto()  - this.descuento;
+	}
 
 }

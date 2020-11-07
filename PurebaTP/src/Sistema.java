@@ -24,10 +24,12 @@ public class Sistema {
 
 		System.out.println("¡Bienvenido "+ usuario.getNombre() + "!");
 
-		LinkedList<Atraccion> listaAtraccionesCompradas = new LinkedList<Atraccion>();
-
+		LinkedList<Producto> listaProductosComprados = new LinkedList<Producto>();
+		
+		//primero sugiere solo las promociones
+		//acá se debería ordenar las promociones
 		for (Promocion p : listaP) {
-			if(usuario.getPresupuesto()>p.getCosto() && usuario.getTiempo()>p.getTiempo()) {
+			if(usuario.getPresupuesto()>=p.getCosto() && usuario.getTiempo()>=p.getTiempo()) {
 				System.out.println("¿Quiere comprar este producto?:");
 
 				System.out.println(p);
@@ -40,12 +42,18 @@ public class Sistema {
 				opcion = teclado.nextLine();
 
 				if (opcion.equals("si")) {
-
+					
+					
 					for (Atraccion a : p.getAtracciones()) {
-						listaAtraccionesCompradas.add(a);
-						listaA.remove(a);
+						
 						a.setCupo(a.getCupo()-1);
+						
+						listaA.remove(a);
+						
 					}
+					p.setCupo(p.getCupo());
+					
+					listaProductosComprados.add(p);
 					usuario.setPresupuesto(usuario.getPresupuesto()-p.getCosto());
 					usuario.setTiempo(usuario.getTiempo() - p.getTiempo());
 					System.out.println("¡Felicidades " + usuario.getNombre() +"!, ud compró: " + p.getNombre() + "!");
@@ -57,9 +65,10 @@ public class Sistema {
 			}
 
 		}
-
+		
+		//acá se debería ordenar las atracciones
 		for (Atraccion a : listaA) {
-			if(usuario.getPresupuesto()>a.getCosto() && usuario.getTiempo()>a.getTiempo()) {
+			if(usuario.getPresupuesto()>=a.getCosto() && usuario.getTiempo()>=a.getTiempo()) {
 				System.out.println("¿Quiere comprar este producto?:");
 
 				System.out.println(a);
@@ -72,7 +81,7 @@ public class Sistema {
 				opcion = teclado.nextLine();
 
 				if (opcion.equals("si")) {
-					listaAtraccionesCompradas.add(a);
+					listaProductosComprados.add(a);
 					a.setCupo(a.getCupo()-1);
 
 					usuario.setPresupuesto(usuario.getPresupuesto()-a.getCosto());
@@ -86,9 +95,11 @@ public class Sistema {
 
 
 		}
-		Itinerario itinerario = new Itinerario(usuario,listaAtraccionesCompradas);
+		Itinerario itinerario = new Itinerario(usuario,listaProductosComprados);
 		System.out.println(usuario);
 		System.out.println(itinerario);
+		System.err.println("No podemos ofrecerle más productos");
+		System.out.println("Presione enter para continuar");
 		Scanner teclado = new Scanner(System.in);
 		String opcion = teclado.nextLine();
 	}

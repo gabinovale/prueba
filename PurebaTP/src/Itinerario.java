@@ -3,14 +3,14 @@ import java.util.LinkedList;
 public class Itinerario {
 	
 	private Usuario usuario;
-	private LinkedList<Atraccion> atracciones;
+	private LinkedList<Producto> productos;
 	private int costoTotal;
 	private Double tiempoTotal;
 	
-	public Itinerario(Usuario usuario, LinkedList<Atraccion> atracciones) {
+	public Itinerario(Usuario usuario, LinkedList<Producto> atracciones) {
 		super();
 		this.usuario = usuario;
-		this.atracciones = atracciones;
+		this.productos = atracciones;
 		this.setCostoTotal(this.calcularCostoTotal());
 		this.setTiempoTotal(this.calcularTiempoTotal());
 	}
@@ -23,12 +23,12 @@ public class Itinerario {
 		this.usuario = usuario;
 	}
 
-	public LinkedList<Atraccion> getAtracciones() {
-		return atracciones;
+	public LinkedList<Producto> getAtracciones() {
+		return productos;
 	}
 
-	public void setAtracciones(LinkedList<Atraccion> atracciones) {
-		this.atracciones = atracciones;
+	public void setAtracciones(LinkedList<Producto> productos) {
+		this.productos = productos;
 	}
 
 	public int getCostoTotal() {
@@ -49,23 +49,23 @@ public class Itinerario {
 	
 	private int calcularCostoTotal() {
 		int total=0;
-		for (Atraccion a : this.atracciones)
-			total+=a.getCosto();
+		for (Producto p : this.productos)
+			total+=p.getCosto();
 		return total;
 	}
 	
 	private Double calcularTiempoTotal() {
 		Double total = 0.0;
-		for (Atraccion a : this.atracciones)
-			total+=a.getTiempo();
+		for (Producto p : this.productos)
+			total+=p.getTiempo();
 		return total;
 	}
 
 	@Override
 	public String toString() {
 		String listado="";
-		for(Atraccion a : this.atracciones)
-			listado+=a.toString()+"\n";
+		for(Producto p : this.productos)
+			listado+=p.toString()+"\n";
 		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + costoTotal + ", tiempoTotal=" + tiempoTotal + "]";
 	}
 	
