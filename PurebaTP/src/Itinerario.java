@@ -23,16 +23,16 @@ public class Itinerario {
 		this.usuario = usuario;
 	}
 
-	public LinkedList<Producto> getAtracciones() {
+	public LinkedList<Producto> getProductos() {
 		return productos;
 	}
 
-	public void setAtracciones(LinkedList<Producto> productos) {
+	public void setProductos(LinkedList<Producto> productos) {
 		this.productos = productos;
 	}
 
 	public int getCostoTotal() {
-		return costoTotal;
+		return this.calcularCostoTotal();
 	}
 
 	public void setCostoTotal(int costoTotal) {
@@ -40,7 +40,7 @@ public class Itinerario {
 	}
 
 	public Double getTiempoTotal() {
-		return tiempoTotal;
+		return this.calcularTiempoTotal();
 	}
 
 	public void setTiempoTotal(Double tiempoTotal) {
@@ -66,7 +66,7 @@ public class Itinerario {
 		String listado="";
 		for(Producto p : this.productos)
 			listado+=p.toString()+"\n";
-		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + costoTotal + ", tiempoTotal=" + tiempoTotal + "]";
+		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + this.getCostoTotal() + ", tiempoTotal=" + this.getTiempoTotal() + "]";
 	}
 	
 	
