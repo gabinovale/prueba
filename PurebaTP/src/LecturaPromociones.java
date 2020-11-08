@@ -99,12 +99,10 @@ public class LecturaPromociones {
 		return listaPromociones;
 	}
 
-//	public static void main(String[] args) {
-//
-//		LinkedList<Promocion> listaPromociones = listaPromocion();
-//		for(Promocion p : listaPromociones)
-//			System.out.println(p);
-//	}
+	public static void imprimirPromociones() {
+		for (Promocion p : listaPromocion())
+			System.out.println(p);
+	}
 
 }
 

@@ -36,6 +36,11 @@ public class LecturaUsuarios {
 		}
 		return listaUsuarios;
 	}
+	
+	public static void imprimirUsuarios() {
+		for (Usuario u : listaUsuario())
+			System.out.println(u);
+	}
 
 
 }

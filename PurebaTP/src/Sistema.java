@@ -1,4 +1,6 @@
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -9,27 +11,14 @@ import java.util.Scanner;
 
 public class Sistema {
 
-	public static void main(String[] args) {
+	public static void cargar() {
 
 		LinkedList<Usuario> usuarios = LecturaUsuarios.listaUsuario();
 
 		LinkedList<Atraccion> listaAtracciones = LecturaAtracciones.listaAtracciones();
 
 		LinkedList<Promocion> listaPromociones = LecturaPromociones.listaPromocion();
-
-//		for (Atraccion a : listaAtracciones)
-//			System.out.println(a);
-//	
-//		Collections.sort(listaAtracciones,new TiempoComparator());
-//		System.out.println("Lista ordenada por tiempo");
-//		for (Atraccion a : listaAtracciones)
-//			System.out.println(a);
-//		
-//		Collections.sort(listaAtracciones,new CostoComparator());
-//		
-//		System.out.println("Lista ordenada por costo");
-//		for (Atraccion a : listaAtracciones)
-//			System.out.println(a);
+		LinkedList<Itinerario> listaItinerarios = new LinkedList<Itinerario>();
 		
 		for (Usuario u : usuarios) {
 			Itinerario itinerario = new Itinerario(u,new LinkedList<Producto>());
@@ -60,6 +49,7 @@ public class Sistema {
 			
 			System.out.println(u);
 			System.out.println(itinerario);
+			listaItinerarios.add(itinerario);
 
 			
 			System.out.println("Presione enter para continuar");
@@ -67,15 +57,13 @@ public class Sistema {
 			String opcion = teclado.nextLine();
 		}
 			
-			
+			guardarItinerario(listaItinerarios);
 
 	}
 
 	public static void sugerir(LinkedList<Promocion> listaP, LinkedList<Atraccion> listaA ,Usuario usuario, Itinerario itinerario) {
 
 		
-
-		//LinkedList<Producto> listaProductosComprados = new LinkedList<Producto>();
 		Collections.sort(listaP,new TiempoComparator());
 		Collections.sort(listaP,new CostoComparator());
 		for (Promocion p : listaP) {
@@ -147,14 +135,41 @@ public class Sistema {
 
 
 		}
-//		Itinerario itinerario = new Itinerario(usuario,listaProductosComprados);
-//		System.out.println(usuario);
-//		System.out.println(itinerario);
-//		System.err.println("No podemos ofrecerle más productos");
-//		System.out.println("Presione enter para continuar");
-//		Scanner teclado = new Scanner(System.in);
-//		String opcion = teclado.nextLine();
+
+
 	}
+	
+	public static void guardarItinerario(LinkedList<Itinerario> lista) {
+    
+        FileWriter archivo = null;
+        PrintWriter pw = null;
+        try
+        {
+            archivo = new FileWriter("Itinerarios.txt");
+            pw = new PrintWriter(archivo);
+
+            for (Itinerario i : lista) {
+            	String linea = i.getUsuario().getNombre();
+            	linea+=";"+i.getCostoTotal();
+            	linea+=";"+i.getTiempoTotal();
+            	for (Producto p : i.getProductos())
+            		linea+=";"+p.getNombre();
+            	
+            	pw.println(linea);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+ 
+           if (null != archivo)
+              archivo.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
 
 }
 

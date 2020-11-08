@@ -33,5 +33,10 @@ public class LecturaAtracciones {
 		}
 		return listaAtracciones;
 	}
+	
+	public static void imprimirAtracciones() {
+		for (Atraccion a : listaAtracciones())
+			System.out.println(a);
+	}
 
 }
