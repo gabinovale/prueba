@@ -14,9 +14,7 @@ public class Sistema {
 	public static void cargar() {
 
 		LinkedList<Usuario> usuarios = LecturaUsuarios.listaUsuario();
-
 		LinkedList<Atraccion> listaAtracciones = LecturaAtracciones.listaAtracciones();
-
 		LinkedList<Promocion> listaPromociones = LecturaPromociones.listaPromocion();
 		LinkedList<Itinerario> listaItinerarios = new LinkedList<Itinerario>();
 
@@ -24,12 +22,15 @@ public class Sistema {
 			Itinerario itinerario = new Itinerario(u,new LinkedList<Producto>());
 			LinkedList<Promocion> promosPreferentes = new LinkedList<Promocion>();
 			LinkedList<Promocion> otrasPromos = new LinkedList<Promocion>();
+			
+			
 			for(Promocion p : listaPromociones) {
 				if (p.getTipo().equals(u.getPreferencia()))
 					promosPreferentes.add(p);
 				else 
 					otrasPromos.add(p);
 			}
+			
 			LinkedList<Atraccion> atraccionesPreferentes = new LinkedList<Atraccion>();
 			LinkedList<Atraccion> otrasAtracciones = new LinkedList<Atraccion>();
 
@@ -42,10 +43,10 @@ public class Sistema {
 
 			System.out.println("¡Bienvenido "+ u.getNombre() + "!");
 			System.out.println("--------------------------------------------");
-			System.out.println("Productos que coinciden");
+			System.out.println("Productos que coinciden con su preferencia:");
 			sugerir(promosPreferentes, atraccionesPreferentes, u, itinerario);
 			System.out.println("--------------------------------------------");
-			System.out.println("Productos que no coinciden");
+			System.out.println("Productos que no coinciden con su preferencia:");
 			sugerir(otrasPromos, otrasAtracciones, u, itinerario);
 
 			System.err.println("No podemos ofrecerle más productos");
@@ -71,15 +72,18 @@ public class Sistema {
 		Collections.sort(listaP,new TiempoComparator());
 		Collections.sort(listaP,new CostoComparator());
 
-//		for (Promocion p : listaP) {
-//			System.out.println(p);
-//		}
+		//		for (Promocion p : listaP) {
+		//			System.out.println(p);
+		//		}
+
+		//		for (Atraccion a : listaA)
+		//			System.out.println(a);
 
 		Collections.sort(listaA,new TiempoComparator());
 		Collections.sort(listaA,new CostoComparator());
 
-//		for (Atraccion a : listaA)
-//			System.out.println(a);
+		//		for (Atraccion a : listaA)
+		//			System.out.println(a);
 
 		for (Promocion p : listaP) {
 			if(usuario.getPresupuesto()>=p.getCosto() && usuario.getTiempo()>=p.getTiempo()) {
@@ -92,41 +96,54 @@ public class Sistema {
 				Scanner teclado = new Scanner(System.in);
 				System.out.print("Introduzca su opcion: ");
 
-				compra = teclado.nextLine();
-	
+				try {
 
-				if (compra.equals("si")) {
 
-					
-					for (Atraccion a : p.getAtracciones()) {
-						for (Atraccion a1 : listaA) {
-							if (a.getNombre().equals(a1.getNombre())) {
-								a1.setCupo(a1.getCupo()-1);
-								listaA.remove(a1);
+					compra = teclado.nextLine();
+
+
+
+					if (compra.equals("si")) {
+
+
+						for (Atraccion a : p.getAtracciones()) {
+							int sacar=0;
+
+							for (Atraccion a1 : listaA) {
+
+								if (a.getNombre().equals(a1.getNombre())) {
+									a1.setCupo(a1.getCupo()-1);
+
+									sacar=listaA.indexOf(a1);
+								}
 							}
+
+
+							listaA.remove(sacar);
+							a.setCupo(a.getCupo()-1);
+
 						}
-						a.setCupo(a.getCupo()-1);
-						
+						p.setCupo(p.getCupo());
+
+
+
+						itinerario.getProductos().add(p);
+
+						usuario.setPresupuesto(usuario.getPresupuesto()-p.getCosto());
+						usuario.setTiempo(usuario.getTiempo() - p.getTiempo());
+						System.out.println("¡Felicidades " + usuario.getNombre() +"!, ud compró: " + p.getNombre() + "!");
+						System.out.println("---------------------------------------");
 					}
-					p.setCupo(p.getCupo());
 
+					//				teclado.close();
 
-
-					itinerario.getProductos().add(p);
-
-					usuario.setPresupuesto(usuario.getPresupuesto()-p.getCosto());
-					usuario.setTiempo(usuario.getTiempo() - p.getTiempo());
-					System.out.println("¡Felicidades " + usuario.getNombre() +"!, ud compró: " + p.getNombre() + "!");
-					System.out.println("---------------------------------------");
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-
-				//				teclado.close();
 
 			}
 
 		}
-
-
 		for (Atraccion a : listaA) {
 			if(usuario.getPresupuesto()>=a.getCosto() && usuario.getTiempo()>=a.getTiempo()) {
 				System.out.println("¿Quiere comprar este producto?:");
@@ -157,9 +174,10 @@ public class Sistema {
 
 
 		}
-
-
 	}
+
+
+
 
 	public static void guardarItinerario(LinkedList<Itinerario> lista) {
 

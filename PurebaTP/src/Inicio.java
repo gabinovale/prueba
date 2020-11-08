@@ -12,7 +12,7 @@ public class Inicio {
 		while (opcion != 0) {
 
 			System.out.println(
-					"     MINISTERIO DE TURISMO EN TIRRA MEDIA\n"
+					"     MINISTERIO DE TURISMO EN TIERRA MEDIA\n"
 							+ "____________________MENU_____________________\n\n"
 							+ "1- USUARIOS ACTUALES.\n"
 							+ "2- ATRACCIONES QUE PUEDEN VISITAR.\n"

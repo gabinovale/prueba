@@ -1,6 +1,6 @@
-Juan;49;14.5;Pack Aventura;Moria;Erebor;Minas Tirith
+Juan;32;11.5;Pack Aventura;Pack Paisaje
 Guillermo;12;3.0;Erebor
-Nico;60;4.0;Lothlorien;Mordor
-Lorena;5;2.5;Minas Tirith
-Martin;45;3.0;Lothlorien;Moria
-Gabino;3;6.5;La Comarca
+Nico;12;3.0;Erebor
+Lorena;0;0.0
+Martin;45;5.5;Lothlorien;Pack Paisaje
+Gabino;15;7.0;Erebor;Bosque Negro
