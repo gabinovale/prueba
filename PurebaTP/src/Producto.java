@@ -60,7 +60,7 @@ public abstract class Producto {
 
 	@Override
 	public String toString() {
-		return "[Producto nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo + ", tipo=" + tipo + "]";
+		return ": nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo + ", tipo=" + tipo + "]";
 	}
 	
 	

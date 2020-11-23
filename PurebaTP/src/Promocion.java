@@ -36,11 +36,37 @@ public class Promocion  extends Producto{
 	}
 	
 	@Override
+	public Double getTiempo() {
+		return this.calcularTiempo();
+	}
+	
+	private Double calcularTiempo() {
+		Double tiempo = 0.0;
+		for (Atraccion a : this.getAtracciones()) {
+			tiempo+=a.getTiempo();
+		}
+		return tiempo;
+	}
+	
+	@Override
+	public int getCosto() {
+		return this.calcularCosto();
+	}
+	
+	private int calcularCosto() {
+		int costo = 0;
+		for (Atraccion a : this.getAtracciones()) {
+			costo+=a.getCosto();
+		}
+		return costo;
+	}
+	
+	@Override
 	public String toString() {
 		String atracciones="\nIncluye las atracciones:";
 		for (Atraccion a : this.getAtracciones())
 			atracciones+=" "+a.getNombre()+",";
-		return super.toString() + atracciones;
+		return "PROMOCION"+super.toString() + atracciones;
 	}
 
 }

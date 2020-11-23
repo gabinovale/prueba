@@ -8,6 +8,7 @@ public class PromocionAxB extends Promocion {
 		super(nombre, atracciones, costo, tiempo, cupo, tipo);
 		this.setAtraccionGratis(atraccionGratis);
 		this.getAtracciones().add(this.atraccionGratis);
+		this.setTiempo(this.getTiempo());
 	}
 
 	public Atraccion getAtraccionGratis() {

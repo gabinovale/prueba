@@ -64,8 +64,17 @@ public class Itinerario {
 	@Override
 	public String toString() {
 		String listado="";
-		for(Producto p : this.productos)
-			listado+=p.toString()+"\n";
+		for(Producto p : this.productos) {
+			
+			if (p instanceof Promocion) {
+				for (Atraccion a : ((Promocion) p).getAtracciones())
+					listado+=a.toString()+"\n";
+			}
+				
+			else
+				listado+=p.toString()+"\n";
+		}
+			
 		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + this.getCostoTotal() + ", tiempoTotal=" + this.getTiempoTotal() + "]";
 	}
 	

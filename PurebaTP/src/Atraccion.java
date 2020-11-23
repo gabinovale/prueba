@@ -11,7 +11,7 @@ public class Atraccion extends Producto {
 	@Override
 	public String toString() {
 		
-		return super.toString();
+		return "ATRACCION"+super.toString();
 	}
 	
 	

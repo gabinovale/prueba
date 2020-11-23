@@ -126,7 +126,6 @@ public class Sistema {
 						p.setCupo(p.getCupo());
 
 
-
 						itinerario.getProductos().add(p);
 
 						usuario.setPresupuesto(usuario.getPresupuesto()-p.getCosto());

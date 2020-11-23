@@ -1,6 +1,6 @@
-Juan;32;11.5;Pack Aventura;Pack Paisaje
-Guillermo;12;3.0;Erebor
-Nico;12;3.0;Erebor
+Juan;22;7.5;Minas Tirith;Abismo de Heim;Erebor
+Guillermo;0;0.0
+Nico;0;0.0
 Lorena;0;0.0
-Martin;45;5.5;Lothlorien;Pack Paisaje
-Gabino;15;7.0;Erebor;Bosque Negro
+Martin;22;7.5;Minas Tirith;Abismo de Heim;Erebor
+Gabino;22;7.5;Minas Tirith;Abismo de Heim;Erebor
