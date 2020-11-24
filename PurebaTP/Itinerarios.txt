@@ -1,6 +1,6 @@
-Juan;22;7.5;Minas Tirith;Abismo de Heim;Erebor
+Juan;0;0.0
 Guillermo;0;0.0
 Nico;0;0.0
 Lorena;0;0.0
-Martin;22;7.5;Minas Tirith;Abismo de Heim;Erebor
-Gabino;22;7.5;Minas Tirith;Abismo de Heim;Erebor
+Martin;0;0.0
+Gabino;0;0.0

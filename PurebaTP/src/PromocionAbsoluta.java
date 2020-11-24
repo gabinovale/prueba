@@ -10,6 +10,12 @@ public class PromocionAbsoluta extends Promocion {
 		this.setDescuento(descuento);
 		this.setCosto(this.calcularCosto());
 	}
+	
+	public PromocionAbsoluta(String nombre, LinkedList<Atraccion> atracciones, String tipo, int descuento) {
+		super(nombre, atracciones, tipo);
+		this.setDescuento(descuento);
+		this.setCosto(this.calcularCosto());
+	}
 
 	public int getDescuento() {
 		return descuento;
@@ -21,11 +27,11 @@ public class PromocionAbsoluta extends Promocion {
 	
 	@Override
 	public int getCosto() {
-		return super.getCosto();
+		return this.calcularCosto();
 	}
 	
 	private int calcularCosto() {
-		return this.getCosto()  - this.descuento;
+		return super.getCosto()  - this.descuento;
 	}
 
 }

@@ -11,6 +11,15 @@ public class Promocion  extends Producto{
 		this.atracciones = atracciones;
 		this.setCupo(this.calcularCupo());
 	}
+	
+	public Promocion(String nombre, LinkedList<Atraccion> atracciones, String tipo) {
+		super(nombre, 0, 0.0, 0, tipo);
+		this.atracciones = atracciones;
+		//this.setCosto(this.getCosto());
+		this.setTiempo(this.getTiempo());
+		this.setCupo(this.getCupo());
+		
+	}
 
 	public LinkedList<Atraccion> getAtracciones() {
 		return atracciones;

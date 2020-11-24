@@ -10,13 +10,28 @@ public class PromocionAxB extends Promocion {
 		this.getAtracciones().add(this.atraccionGratis);
 		this.setTiempo(this.getTiempo());
 	}
-
+	
+	public PromocionAxB(String nombre, LinkedList<Atraccion> atracciones, String tipo, Atraccion gratis) {
+		super(nombre, atracciones, tipo);
+		this.setAtraccionGratis(gratis);
+		this.setCosto(this.calcularCosto());
+	}
+	
 	public Atraccion getAtraccionGratis() {
 		return atraccionGratis;
 	}
 
 	public void setAtraccionGratis(Atraccion atraccionGratis) {
 		this.atraccionGratis = atraccionGratis;
+	}
+	
+	@Override
+	public int getCosto() {
+		return this.calcularCosto();
+	}
+	
+	private int calcularCosto() {
+		return super.getCosto() - this.atraccionGratis.getCosto();
 	}
 	
 	

@@ -46,7 +46,7 @@ public class Inicio {
 					break;  
 				case 5:
 					System.out.println("LISTA DE ITINERARIOS:");
-					LecturaItinerarios.listaItinerarios();
+					LecturaItinerarios.obtenerItinerariosDB();
 					break;
 				case 0:
 					System.err.println("FIN");

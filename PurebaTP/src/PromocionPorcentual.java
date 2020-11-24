@@ -9,6 +9,13 @@ public class PromocionPorcentual extends Promocion {
 		this.setPorcentaje(porcentaje);
 		this.setCosto(this.calcularCosto());
 	}
+	
+	public PromocionPorcentual(String nombre, LinkedList<Atraccion> atracciones, String tipo, Double porcentaje) {
+		super(nombre, atracciones, tipo);
+		this.setPorcentaje(porcentaje);
+		this.setCosto(this.getCosto());
+		
+	}
 
 	public Double getPorcentaje() {
 		return porcentaje;
@@ -20,11 +27,11 @@ public class PromocionPorcentual extends Promocion {
 	
 	@Override
 	public int getCosto() {
-		return super.getCosto();
+		return this.calcularCosto();
 	}
 	
 	private int calcularCosto() {
-		return (int) (super.getCosto() * (100 - this.porcentaje)/100);
+		return (int) (super.getCosto() * (100 - this.getPorcentaje())/100);
 	}
 
 }
