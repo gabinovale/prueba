@@ -14,34 +14,34 @@ import java.util.Map;
 
 public class LecturaItinerarios {
 
-	public static void listaItinerarios() {
-
-		try {
-			FileReader input = new FileReader("Itinerarios.txt");
-			BufferedReader bufInput = new BufferedReader(input);
-			String line;
-			line = bufInput.readLine();
-			while (line != null) {
-				String[] datos;
-				datos = line.split(";");
-				String itinerario = "Usuario: " + datos[0];
-				itinerario += " - Costo Total: " + datos[1];
-				itinerario += " - Tiempo Total: " + datos[2];
-				itinerario += " - Compras: ";
-				for (int i = 3; i < datos.length; i++) {
-					itinerario += datos[i] + ", ";
-				}
-
-				System.out.println(itinerario);
-				line = bufInput.readLine();
-
-			}
-			bufInput.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+//	public static void listaItinerarios() {
+//
+//		try {
+//			FileReader input = new FileReader("Itinerarios.txt");
+//			BufferedReader bufInput = new BufferedReader(input);
+//			String line;
+//			line = bufInput.readLine();
+//			while (line != null) {
+//				String[] datos;
+//				datos = line.split(";");
+//				String itinerario = "Usuario: " + datos[0];
+//				itinerario += " - Costo Total: " + datos[1];
+//				itinerario += " - Tiempo Total: " + datos[2];
+//				itinerario += " - Compras: ";
+//				for (int i = 3; i < datos.length; i++) {
+//					itinerario += datos[i] + ", ";
+//				}
+//
+//				System.out.println(itinerario);
+//				line = bufInput.readLine();
+//
+//			}
+//			bufInput.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	public static LinkedList<Itinerario> obtenerItinerariosDB() {
 		LinkedList<Itinerario> listaItinerarios = new LinkedList<Itinerario>();
@@ -63,20 +63,22 @@ public class LecturaItinerarios {
 			statement.setQueryTimeout(30); // Límite de tiempo de query en segundos
 
 			// Leo los datos
-			ResultSet rs = statement.executeQuery(
-					"SELECT usuario.nombre, itinerario.costo_total,itinerario.tiempo_total, group_concat(atraccion.nombre) AS atracciones FROM itinerario \r\n"
-							+ "JOIN usuario ON usuario.id = itinerario.usuario_id\r\n"
-							+ "JOIN itinerario_atraccion ON itinerario_atraccion.itinerario_id = itinerario.id\r\n"
-							+ "JOIN atraccion ON atraccion.id = itinerario_atraccion.atraccion_id\r\n"
-							+ "GROUP BY usuario.nombre");
+			ResultSet rs = statement.executeQuery("SELECT nombre, sum(costo_total) AS costo_total , total(tiempo_total)  AS tiempo_total, group_concat(atracciones) AS atracciones FROM\r\n"
+					+ "(\r\n"
+					+ "SELECT itinerario.id, usuario.nombre, itinerario.costo_total AS costo_total,itinerario.tiempo_total AS tiempo_total\r\n"
+					+ ", group_concat(atraccion.nombre) AS atracciones\r\n"
+					+ "FROM itinerario \r\n"
+					+ "JOIN usuario ON usuario.id = itinerario.usuario_id\r\n"
+					+ "JOIN itinerario_atraccion ON itinerario_atraccion.itinerario_id = itinerario.id\r\n"
+					+ "JOIN atraccion ON atraccion.id = itinerario_atraccion.atraccion_id\r\n"
+					+ "GROUP BY itinerario.id\r\n"
+					+ ")\r\n"
+					+ "GROUP BY nombre");
 			while (rs.next()) {
 				String nombre = rs.getString("nombre");
 				int costoTotal = rs.getInt("costo_total");
 				Double tiempoTotal = rs.getDouble("tiempo_total");
 				String linea = rs.getString("atracciones");
-				
-				System.out.println("Usuario: "+nombre+" - Costo Total: "+costoTotal+" - Tiempo total: "+tiempoTotal+" - Atracciones: "+linea);
-				
 				String[] atracciones = linea.split(",");
 				LinkedList<Producto> nuevaLista = new LinkedList<Producto>();
 				for (int i = 0; i < atracciones.length; i++) {
@@ -84,7 +86,7 @@ public class LecturaItinerarios {
 					nuevaLista.add(a);
 				}
 				Usuario usuario = mapaUsuarios.get(nombre);
-				Itinerario i = new Itinerario(usuario, nuevaLista);
+				Itinerario i = new Itinerario(usuario, nuevaLista, costoTotal);
 						
 				listaItinerarios.add(i);
 			}

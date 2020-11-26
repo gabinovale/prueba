@@ -46,7 +46,7 @@ public class Inicio {
 					break;  
 				case 5:
 					System.out.println("LISTA DE ITINERARIOS:");
-					LecturaItinerarios.obtenerItinerariosDB();
+					LecturaItinerarios.imprimirItinerarios();
 					break;
 				case 0:
 					System.err.println("FIN");
@@ -60,6 +60,7 @@ public class Inicio {
 				}
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.err.println("El dato ingresado no es un entero");
 				break;
 			}

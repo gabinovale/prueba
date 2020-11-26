@@ -14,6 +14,13 @@ public class Itinerario {
 		this.setCostoTotal(this.calcularCostoTotal());
 		this.setTiempoTotal(this.calcularTiempoTotal());
 	}
+	
+	public Itinerario(Usuario usuario, LinkedList<Producto> atracciones, int costoTotal) {
+		super();
+		this.usuario = usuario;
+		this.productos = atracciones;
+		this.costoTotal=costoTotal;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -75,7 +82,7 @@ public class Itinerario {
 				listado+=p.toString()+"\n";
 		}
 			
-		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + this.getCostoTotal() + ", tiempoTotal=" + this.getTiempoTotal() + "]";
+		return "Itinerario de "+this.usuario.getNombre()+"\n"+listado + " [costoTotal=" + this.costoTotal + ", tiempoTotal=" + this.getTiempoTotal() + "]";
 	}
 	
 	
