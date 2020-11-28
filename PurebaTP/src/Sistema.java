@@ -23,18 +23,18 @@ public class Sistema {
 				
 		for (Usuario u : usuarios) {
 
-			Itinerario itinerario = new Itinerario(u, new LinkedList<Producto>());
+			Itinerario itinerarioActual = new Itinerario(u, new LinkedList<Producto>());
 			LinkedList<Promocion> promosPreferentes = new LinkedList<Promocion>();
 			LinkedList<Promocion> otrasPromos = new LinkedList<Promocion>();
 			
 			
-			Itinerario iUsuario = new Itinerario(u, new LinkedList<Producto>());
+			Itinerario itinerarioAnterior = new Itinerario(u, new LinkedList<Producto>());
 			for (Itinerario i : listaItinerariosDB) {
 				if (i.getUsuario().getNombre().equals(u.getNombre())) {
-					iUsuario = i;
+					itinerarioAnterior = i;
 				}
 			}
-			LinkedList<Producto> productosComprados = iUsuario.getProductos();
+			LinkedList<Producto> productosComprados = itinerarioAnterior.getProductos();
 
 			
 			for(Promocion promo : listaPromociones) {
@@ -89,16 +89,16 @@ public class Sistema {
 			System.out.println("¡Bienvenido " + u.getNombre() + "!");
 			System.out.println("--------------------------------------------");
 			System.out.println("Productos que coinciden con su preferencia:");
-			sugerir(promosPreferentes, atraccionesPreferentes, u, itinerario );
+			sugerir(promosPreferentes, atraccionesPreferentes, u, itinerarioActual );
 			System.out.println("--------------------------------------------");
 			System.out.println("Productos que no coinciden con su preferencia:");
-			sugerir(otrasPromos, otrasAtracciones, u, itinerario );
+			sugerir(otrasPromos, otrasAtracciones, u, itinerarioActual );
 
 			System.err.println("No podemos ofrecerle más productos");
 
 			System.out.println(u);
-			System.out.println(itinerario);
-			listaItinerarios.add(itinerario);
+			System.out.println(itinerarioActual);
+			listaItinerarios.add(itinerarioActual);
 
 			// Actualiza la tabla usuario de la base de datos
 			Connection connection = null;
@@ -235,8 +235,9 @@ public class Sistema {
 
 				if (opcion.equals("si")) {
 
-					itinerario.getProductos().add(a);
+					
 					a.setCupo(a.getCupo() - 1);
+					itinerario.getProductos().add(a);
 
 					usuario.setPresupuesto(usuario.getPresupuesto() - a.getCosto());
 					usuario.setTiempo(usuario.getTiempo() - a.getTiempo());
@@ -247,6 +248,7 @@ public class Sistema {
 			}
 
 		}
+		itinerario.setCostoTotal(itinerario.getCostoTotal());
 	}
 
 	public static void guardarItinerario(LinkedList<Itinerario> lista) {
