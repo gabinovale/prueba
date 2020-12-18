@@ -66,11 +66,11 @@ public class Inicio {
 			}
 			finally {
 				System.out.println("----------------------------------------------------------");
-
 			}
 
 
 
 		}	
+		opc.close();
 	}
 }
